@@ -1,4 +1,4 @@
-Stock Information GUI
+#Stock Information GUI
 
 This is a simple graphical user interface (GUI) created with Tkinter and yfinance that allows the user to enter a stock ticker and display information about the stock. The GUI displays the information in a text widget and includes a "Quit" button to close the window.
 
