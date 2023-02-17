@@ -19,6 +19,7 @@ def display_stock_info():
 # Create a Tkinter window
 window = tk.Tk()
 window.title("Stock Information")
+window.geometry("800x600")
 
 # Create a label and input box for the ticker
 ticker_label = tk.Label(window, text="Enter ticker:")
@@ -38,7 +39,8 @@ text.pack()
 def quit_window():
     window.destroy()
 
-quit_button = tk.Button(window, text="Quit", command=quit_window, bg='red')
+quit_button = tk.Button(window, text="Quit", bg='#fc0303', command=quit_window)
 quit_button.pack()
+
 
 window.mainloop()
