@@ -38,7 +38,7 @@ text.pack()
 def quit_window():
     window.destroy()
 
-quit_button = tk.Button(window, text="Quit", command=quit_window)
+quit_button = tk.Button(window, text="Quit", command=quit_window, fg='red')
 quit_button.pack()
 
 window.mainloop()
