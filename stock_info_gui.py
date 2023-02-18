@@ -10,7 +10,6 @@ window.title("Stock Information")
 window.geometry("800x1000")
 
 
-
 # Function to update the historical graph with the current date_window input
 def update_historical_graph():
     # Get the stock ticker and date window inputs from the user
@@ -23,7 +22,7 @@ def update_historical_graph():
     elif 'm' in date_window:
         start_date = end_date - timedelta(days=30*int(date_window[0]))
     elif 'd' in date_window:
-        start_date = end_date - timedelta(days=1*int(date_window[0]))
+        start_date = end_date - timedelta(days=int(date_window[0]))
     else:
         return
     data = yf.download(ticker, start=start_date, end=end_date)
