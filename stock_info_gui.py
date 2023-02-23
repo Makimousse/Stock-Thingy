@@ -18,11 +18,11 @@ def update_historical_graph():
     # Get the stock price data for the specified date window
     end_date = datetime.today() - timedelta(days=1)
     if 'y' in date_window:
-        start_date = end_date - timedelta(days=365*int(date_window[0]))
+        start_date = end_date - timedelta(days=365*int(date_window[:-1]))
     elif 'm' in date_window:
-        start_date = end_date - timedelta(days=30*int(date_window[0]))
+        start_date = end_date - timedelta(days=30*int(date_window[:-1]))
     elif 'd' in date_window:
-        start_date = end_date - timedelta(days=int(date_window[0]))
+        start_date = end_date - timedelta(days=int(date_window[:-1]))
     else:
         return
     data = yf.download(ticker, start=start_date, end=end_date)
@@ -30,9 +30,9 @@ def update_historical_graph():
     ax.clear()
     # Plot the stock price data on the graph
     ax.plot(data.index, data['Adj Close'])
-    ax.set_title(f"{ticker} Stock Price")
+    ax.set_title(f"{ticker} Stock Price in USD")
     ax.set_xlabel("Date")
-    ax.set_ylabel("Price")
+    ax.set_ylabel("Price (In USD)")
     fig.autofmt_xdate()
     canvas.draw()
 
