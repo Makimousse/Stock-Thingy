@@ -10,7 +10,7 @@ window.title("Stock Information")
 window.geometry("800x1000")
 
 
-# Function to update the historical graph with the current date_window input
+# Function to get and update the historical graph with the current date_window input
 def update_historical_graph():
     # Get the stock ticker and date window inputs from the user
     ticker = ticker_input.get()
@@ -60,14 +60,19 @@ graph_button.pack()
 def display_stock_info():
     # Get the stock information for the ticker entered in the input box
     ticker = ticker_input.get()
-    stock = yf.Ticker(ticker)
-    stock_info = stock.fast_info
-    # Clear the text widget
-    text.delete('1.0', 'end')
-    # Insert the stock information into the text widget with first letter of each key capitalized
-    for key, value in stock_info.items():
-        capitalized_key = key.capitalize()
-        text.insert('end', f"{capitalized_key}: {value}\n\n")
+    try:
+        stock = yf.Ticker(ticker)
+        stock_info = stock.fast_info
+        # Clear the text widget
+        text.delete('1.0', 'end')
+        # Insert the stock information into the text widget with first letter of each key capitalized
+        for key, value in stock_info.items():
+            capitalized_key = key.capitalize()
+            text.insert('end', f"{capitalized_key}: {value}\n\n")
+    except:
+        # Display an error message on the text widget
+        text.delete('1.0', 'end')
+        text.insert('end', "An error occurred while fetching stock information. Please try again with other values.\n")
 
 # Create a button to display the stock information
 info_button = tk.Button(window, text="Display Info", command=display_stock_info)
@@ -81,7 +86,7 @@ text.pack()
 def quit_window():
     window.destroy()
 
-quit_button = tk.Button(window, text="Quit", bg='#fc0303', command=quit_window)
+quit_button = tk.Button(window, text="Quit", fg='red', command=quit_window)
 quit_button.pack()
 
 # Create a FigureCanvasTkAgg object for displaying the historical graph
