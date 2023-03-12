@@ -62,13 +62,20 @@ def display_stock_info():
     ticker = ticker_input.get()
     try:
         stock = yf.Ticker(ticker)
-        stock_info = stock.fast_info
+        old_info = stock.fast_info
         # Clear the text widget
         text.delete('1.0', 'end')
-        # Insert the stock information into the text widget with first letter of each key capitalized
-        for key, value in stock_info.items():
-            capitalized_key = key.capitalize()
-            text.insert('end', f"{capitalized_key}: {value}\n\n")
+        # Define the new key names in the desired order
+        old_key = ['currency', 'dayHigh', 'dayLow', 'exchange', 'fiftyDayAverage', 'lastPrice', 'lastVolume', 'marketCap', 'open', 'previousClose', 'quoteType', 'regularMarketPreviousClose', 'shares', 'tenDayAverageVolume', 'threeMonthAverageVolume', 'timezone', 'twoHundredDayAverage', 'yearChange', 'yearHigh', 'yearLow']
+        new_key = ['Currency', 'Day High', 'Day Low', 'Stock Exchange', '50 day average', 'Last Price', 'Last Volume', 'Market cap', 'Opening price', 'Previous close', 'Quote type', 'Regular market previous close', 'Outstanding shares', '10 day average volume', '3-month average volume', 'Time zone', '200 day average', 'Year change', 'Year high', 'Year low']
+        # Creating new dictionary with new_key as keys and corresponding values
+        new_info = {}
+        for new_key, old_key in zip(new_key, old_key):
+            new_info[new_key] = old_info[old_key]
+        new_key_order = ['Quote type','Currency','Time zone', 'Stock Exchange','Outstanding shares','Market cap','Opening price','Previous close','Regular market previous close','Day High','Day Low','Last Price','Last Volume','10 day average volume','3-month average volume','50 day average','200 day average','Year change','Year high','Year low']
+        new_info = {new_key: new_info[new_key] for new_key in new_key_order}
+        for key, value in new_info.items():
+            text.insert('end', f"{key}: {value}\n\n")
     except:
         # Display an error message on the text widget
         text.delete('1.0', 'end')
