@@ -66,12 +66,16 @@ def display_stock_info():
         # Clear the text widget
         text.delete('1.0', 'end')
         # Define the new key names in the desired order
-        old_key = ['currency', 'dayHigh', 'dayLow', 'exchange', 'fiftyDayAverage', 'lastPrice', 'lastVolume', 'marketCap', 'open', 'previousClose', 'quoteType', 'regularMarketPreviousClose', 'shares', 'tenDayAverageVolume', 'threeMonthAverageVolume', 'timezone', 'twoHundredDayAverage', 'yearChange', 'yearHigh', 'yearLow']
-        new_key = ['Currency', 'Day High', 'Day Low', 'Stock Exchange', '50 day average', 'Last Price', 'Last Volume', 'Market cap', 'Opening price', 'Previous close', 'Quote type', 'Regular market previous close', 'Outstanding shares', '10 day average volume', '3-month average volume', 'Time zone', '200 day average', 'Year change', 'Year high', 'Year low']
-        # Creating new dictionary with new_key as keys and corresponding values
+        new_keys = {'currency': 'Currency', 'dayHigh': 'Day High', 'dayLow': 'Day Low', 'exchange': 'Stock Exchange', 'fiftyDayAverage': '50 day average', 'lastPrice': 'Last Price', 'lastVolume': 'Last Volume', 'marketCap': 'Market cap', 'open': 'Opening price', 'previousClose': 'Previous close', 'quoteType': 'Quote type', 'regularMarketPreviousClose': 'Regular market previous close', 'shares': 'Outstanding shares', 'tenDayAverageVolume': '10 day average volume', 'threeMonthAverageVolume': '3-month average volume', 'timezone': 'Time zone', 'twoHundredDayAverage': '200 day average', 'yearChange': 'Year change', 'yearHigh': 'Year high', 'yearLow': 'Year low'}
+        # Creating new dictionary with new_key's keys and old_info's values 
         new_info = {}
-        for new_key, old_key in zip(new_key, old_key):
-            new_info[new_key] = old_info[old_key]
+        for key, val in old_info.items():
+            if key in new_keys:
+                new_key = new_keys[key]
+            else:
+                new_key=key
+            new_info[new_key] = val
+            
         new_key_order = ['Quote type','Currency','Time zone', 'Stock Exchange','Outstanding shares','Market cap','Opening price','Previous close','Regular market previous close','Day High','Day Low','Last Price','Last Volume','10 day average volume','3-month average volume','50 day average','200 day average','Year change','Year high','Year low']
         new_info = {new_key: new_info[new_key] for new_key in new_key_order}
         for key, value in new_info.items():
