@@ -7,6 +7,7 @@ Prerequisites:
 - tkinter, yfinance, and matplotlib modules.
 ## Installation
 The required modules can be installed via pip:
+
 pip install tkinter yfinance matplotlib
 ## Usage
 After installing the required modules, run the script stock_info_gui.py and enter the ticker and date window. The application has two buttons, one to display the historical graph, and the other to display the stock information.
@@ -27,7 +28,7 @@ The GUI components are created using the tkinter module. The following component
 - tk.Text: This is used to display the stock information.
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License.
 
 
 
