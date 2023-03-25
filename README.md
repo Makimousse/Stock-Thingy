@@ -1,31 +1,33 @@
-# Stock Information App
-This app is designed to display stock information and a historical graph for a given stock ticker.
+# Stock Information Application
+This is a Python application to fetch and display stock information and historical prices for a given ticker. It uses the tkinter module for creating a GUI window, yfinance module for fetching stock information, and matplotlib module for displaying the historical prices.
 
-## Requirements:
-This code requires the following Python packages:
-- tkinter
-- matplotlib
-- yfinance
+## Getting Started
+Prerequisites:
+- Python 3.x
+- tkinter, yfinance, and matplotlib modules.
+## Installation
+The required modules can be installed via pip:
+pip install tkinter yfinance matplotlib
+## Usage
+After installing the required modules, run the script stock_info_gui.py and enter the ticker and date window. The application has two buttons, one to display the historical graph, and the other to display the stock information.
 
-## Usage:
-To use this app, simply run the code in a Python environment. A window will appear with the following features:
+## Running the application
+To run the application, execute the stock_info_gui.py file in the terminal or run it via an IDE.
 
-- A title widget at the top of the window displaying "Awesome Stock app"
-- A label and input box for the ticker
-- A label and input box for the date window
-- A button to display the historical graph
-- A button to display the stock information
-- A text widget to display the stock information
-- A Quit button to close the window
+## Application Structure
+The stock_info_gui.py file is the main entry point to the application. The application has the following functions:
+- update_historical_graph(): This function updates the historical graph based on the entered ticker and date window. It uses the yfinance module to fetch the stock price information for the entered date range, and matplotlib to plot the stock price data on the graph.
+- get_start_and_end_date(date_window): This function returns the start and end dates for the entered date window. It takes the date window as input, calculates the start and end dates based on the date window, and returns them.
+- display_stock_info(): This function displays the stock information for the entered ticker. It uses the yfinance module to fetch the stock information, reformats the information to a user-friendly format, and displays it on a text widget.
+## GUI components
+The GUI components are created using the tkinter module. The following components are used in the application:
+- tk.Label: This is used to create labels for the ticker, date window, and title.
+- tk.Entry: This is used to create input boxes for the ticker and date window.
+- tk.Button: This is used to create buttons for displaying the historical graph and stock information, and for quitting the application.
+- tk.Text: This is used to display the stock information.
 
-## Historical Graph:
-To display the historical graph, enter a stock ticker and a date window ('1y', '1m', or '1d') and click the "Historical Graph" button. The graph will display the adjusted close stock price for the specified date window.
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-## Stock Information:
-To display the stock information, enter a stock ticker and click the "Display Info" button.
 
-## Notes:
-This app uses the yfinance library to retrieve stock data and the matplotlib library to display the historical graph. The app is designed to handle user inputs that conform to the date window format specified above. Any other input will not produce a graph.
 
-### License:
-This code is published under the MIT license
