@@ -27,6 +27,19 @@ The GUI components are created using the tkinter module. The following component
 - tk.Button: This is used to create buttons for displaying the historical graph and stock information, and for quitting the application.
 - tk.Text: This is used to display the stock information.
 
+## Code sources:
+Some of the code in this project was inspired by/sourced from online resources. You may find these sources below:
+- Stack Overflow (https://stackoverflow.com/)
+- Graphical User Interfaces with Tk (https://docs.python.org/3/library/tk.html)
+- Tkinter tutorial (https://www.pythonguis.com/tkinter-tutorial/)
+- Python GUI Programming With Tkinter (https://realpython.com/python-gui-tkinter/)
+- PyPI - yfinance (https://pypi.org/project/yfinance/)
+- yfinance Library – A Complete Guide (https://algotrading101.com/learn/yfinance-guide/)
+- datetime — Basic date and time types (https://docs.python.org/3/library/datetime.html)
+- Matplotlib tutorials (https://matplotlib.org/stable/tutorials/index)
+- PyPI - Matplotlib (https://pypi.org/project/matplotlib/)
+- Python | Introduction to Matplotlib (https://www.geeksforgeeks.org/python-introduction-matplotlib/)
+As a supplementary resource, ChatGPT was utilized as a final measure to address coding challenges, effectively resolving file and source-code editor-related concerns, among others.
 ## License
 This project is licensed under the MIT License.
 

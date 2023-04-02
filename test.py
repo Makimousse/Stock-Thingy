@@ -6,21 +6,28 @@ import matplotlib.pyplot as plt
 
 # Function to get and update the historical graph with the current date_window input
 def update_historical_graph():
-    ticker = ticker_input.get()
+    # Get tickers and date window inputs
+    ticker1 = ticker_label1.get()
+    ticker2 = ticker_label2.get()
     date_window = date_window_input.get()
 
     # Fetches the determined date window from get_start_and_end_date
     start_date, end_date = get_start_and_end_date(date_window)
     if start_date is None or end_date is None:
         return
-    # Downloads the stock price information from the date window
-    data = yf.download(ticker, start=start_date, end=end_date)
+
+    # Downloads the stock price information for both tickers
+    data1 = yf.download(ticker1, start=start_date, end=end_date)
+    data2 = yf.download(ticker2, start=start_date, end=end_date)
+
     # Plot the stock price data on the graph
     ax.clear()
-    ax.plot(data.index, data['Adj Close'])
-    ax.set_title(f"{ticker} Stock Price in USD")
+    ax.plot(data1.index, data1['Adj Close'], label=ticker1)
+    ax.plot(data2.index, data2['Adj Close'], label=ticker2)
+    ax.set_title(f"{ticker1} vs {ticker2} Stock Price in USD")
     ax.set_xlabel("Date")
     ax.set_ylabel("Price (In USD)")
+    ax.legend(loc="upper left")
     fig.autofmt_xdate()
     canvas.draw()
 
@@ -78,10 +85,16 @@ title = tk.Label(window, text="Awesome Stock app", font=("Arial", 24))
 title.pack(side="top", fill="x", pady=10)
 
 # Create a label and input box for the ticker
-ticker_label = tk.Label(window, text="Enter ticker:")
-ticker_label.pack()
+ticker_label1 = tk.Label(window, text="Enter ticker:")
+ticker_label1.pack()
 ticker_input = tk.Entry(window)
 ticker_input.pack()
+
+# Create a label and input box for the second ticker
+ticker_label2 = tk.Label(window, text="Enter second ticker (for graph only):")
+ticker_label2.pack()
+ticker_input2 = tk.Entry(window)
+ticker_input2.pack()
 
 # Create a label and input box for the date window
 date_window_label = tk.Label(window, text="Enter date window ('1y', '1m', or '1d'):")
