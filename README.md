@@ -39,6 +39,7 @@ Some of the code in this project was inspired by/sourced from online resources. 
 - Matplotlib tutorials (https://matplotlib.org/stable/tutorials/index)
 - PyPI - Matplotlib (https://pypi.org/project/matplotlib/)
 - Python | Introduction to Matplotlib (https://www.geeksforgeeks.org/python-introduction-matplotlib/)
+
 As a supplementary resource, ChatGPT was utilized as a final measure to address coding challenges, effectively resolving file and source-code editor-related concerns, among others.
 ## License
 This project is licensed under the MIT License.

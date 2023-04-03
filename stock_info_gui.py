@@ -3,6 +3,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from datetime import datetime, timedelta
 import yfinance as yf
 import matplotlib.pyplot as plt
+import json
 
 # Function to get and update the historical graph with the current date_window input
 def update_historical_graph():
@@ -45,8 +46,10 @@ def display_stock_info():
         # Gets the data for the ticker
         stock = yf.Ticker(ticker)
         old_info = stock.fast_info
-        # Reformulates the keys of the fast_info
-        new_keys = {'currency': 'Currency', 'dayHigh': 'Day High', 'dayLow': 'Day Low', 'exchange': 'Stock Exchange', 'fiftyDayAverage': '50 day average', 'lastPrice': 'Last Price', 'lastVolume': 'Last Volume', 'marketCap': 'Market cap', 'open': 'Opening price', 'previousClose': 'Previous close', 'quoteType': 'Quote type', 'regularMarketPreviousClose': 'Regular market previous close', 'shares': 'Outstanding shares', 'tenDayAverageVolume': '10 day average volume', 'threeMonthAverageVolume': '3-month average volume', 'timezone': 'Time zone', 'twoHundredDayAverage': '200 day average', 'yearChange': 'Year change', 'yearHigh': 'Year high', 'yearLow': 'Year low'}
+        # Reads the reformulated keys from an external json file
+        nk_open = open("new_keys.json", "r")
+        new_keys = json.load(nk_open)
+        # Creates a new dictionary that will host the corrected data information and order
         new_info = {}
         # Associates the values of fast_info with the reformulated keys of new_keys
         for key, val in old_info.items():
@@ -55,8 +58,10 @@ def display_stock_info():
             else:
                 new_key=key
             new_info[new_key] = val
-        # Categorizes the keys
-        new_key_order = ['Quote type','Currency','Time zone', 'Stock Exchange','Outstanding shares','Market cap','Opening price','Previous close','Regular market previous close','Day High','Day Low','Last Price','Last Volume','10 day average volume','3-month average volume','50 day average','200 day average','Year change','Year high','Year low']
+        # Reads the categorized keys from an external json file
+        nko_open = open("new_key_order.json", "r")
+        new_key_order = json.load(nko_open)
+        # Applies the new order on the information dictionary
         new_info = {new_key: new_info[new_key] for new_key in new_key_order}
         # Clear the text widget and display the data
         text.delete('1.0', 'end')
