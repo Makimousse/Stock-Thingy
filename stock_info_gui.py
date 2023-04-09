@@ -4,24 +4,37 @@ from datetime import datetime, timedelta
 import yfinance as yf
 import matplotlib.pyplot as plt
 import json
+import requests
 
 # Function to get and update the historical graph with the current date_window input
 def update_historical_graph():
     ticker = ticker_input.get()
+    ticker2 = ticker_input2.get()
     date_window = date_window_input.get()
 
     # Fetches the determined date window from get_start_and_end_date
     start_date, end_date = get_start_and_end_date(date_window)
     if start_date is None or end_date is None:
         return
-    # Downloads the stock price information from the date window
-    data = yf.download(ticker, start=start_date, end=end_date)
-    # Plot the stock price data on the graph
-    ax.clear()
-    ax.plot(data.index, data['Adj Close'])
-    ax.set_title(f"{ticker} Stock Price in USD")
-    ax.set_xlabel("Date")
-    ax.set_ylabel("Price (In USD)")
+    
+    # Handles if the second input field is empty
+    if ticker2 == '':
+        data = yf.download(ticker, start=start_date, end=end_date)
+        ax.clear()
+        ax.plot(data.index, data['Adj Close'])
+        ax.set_title(f"{ticker} Stock Price in USD")
+        ax.set_xlabel("Date")
+        ax.set_ylabel("Price (In USD)")
+    else:
+        data1 = yf.download(ticker, start=start_date, end=end_date)
+        data2 = yf.download(ticker2, start=start_date, end=end_date)
+        ax.clear()
+        ax.plot(data1.index, data1['Adj Close'], label=ticker)
+        ax.plot(data2.index, data2['Adj Close'], label=ticker2)
+        ax.set_title(f"{ticker} and {ticker2} Stock Price in USD")
+        ax.set_xlabel("Date")
+        ax.set_ylabel("Price (In USD)")
+        ax.legend()
     fig.autofmt_xdate()
     canvas.draw()
 
@@ -47,8 +60,8 @@ def display_stock_info():
         stock = yf.Ticker(ticker)
         old_info = stock.fast_info
         # Reads the reformulated keys from an external json file
-        nk_open = open("new_keys.json", "r")
-        new_keys = json.load(nk_open)
+        response = requests.get("https://raw.githubusercontent.com/Makimousse/Stock-Thingy/main/new_keys.json")
+        new_keys = json.loads(response.content)
         # Creates a new dictionary that will host the corrected data information and order
         new_info = {}
         # Associates the values of fast_info with the reformulated keys of new_keys
@@ -59,8 +72,8 @@ def display_stock_info():
                 new_key=key
             new_info[new_key] = val
         # Reads the categorized keys from an external json file
-        nko_open = open("new_key_order.json", "r")
-        new_key_order = json.load(nko_open)
+        response = requests.get("https://raw.githubusercontent.com/Makimousse/Stock-Thingy/main/new_key_order.json")
+        new_key_order = json.loads(response.content)
         # Applies the new order on the information dictionary
         new_info = {new_key: new_info[new_key] for new_key in new_key_order}
         # Clear the text widget and display the data
@@ -71,6 +84,7 @@ def display_stock_info():
         # Clears the text widget and displays an error message
         text.delete('1.0', 'end')
         text.insert('end', "An error occurred while fetching stock information. Please try again with other values.\n")
+
 
 
 # Create a Tkinter window
@@ -88,6 +102,12 @@ ticker_label.pack()
 ticker_input = tk.Entry(window)
 ticker_input.pack()
 
+# Create a second input box, for the second ticker
+ticker_label2 = tk.Label(window, text="Enter another ticker (for graph):")
+ticker_label2.pack()
+ticker_input2 = tk.Entry(window)
+ticker_input2.pack()
+
 # Create a label and input box for the date window
 date_window_label = tk.Label(window, text="Enter date window ('1y', '1m', or '1d'):")
 date_window_label.pack()
@@ -99,7 +119,7 @@ graph_button = tk.Button(window, text="Historical Graph", command=update_histori
 graph_button.pack()
 
 # Create a button to display the stock information with the display_stock_info function
-info_button = tk.Button(window, text="Display Info", command=display_stock_info)
+info_button = tk.Button(window, text="Display Info (for first ticker only)", command=display_stock_info)
 info_button.pack()
 
 # Create a text widget to display the stock information
